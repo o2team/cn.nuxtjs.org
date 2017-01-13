@@ -10,7 +10,7 @@ const store = new Vuex.Store({
     visibleHeader: false,
     visibleAffix: false,
     apiURI: 'https://docs.api.nuxtjs.org',
-    _lang: 'en',
+    _lang: 'cn',
     lang: {},
     menu: {}
   },

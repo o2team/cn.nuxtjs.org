@@ -31,25 +31,27 @@ export default {
       res = await axios.get(store.state.apiURI + path)
     } catch (err) {
       if (err.response.status !== 404) {
-        return error({ statusCode: 500, message: 'An error occured' })
+        return error({ statusCode: 500, message: '文档API服务异常' })
       }
-      return error({ statusCode: 404, message: 'Guide page not found' })
+      return error({ statusCode: 404, message: '教程页面不存在' })
     }
     data.attrs = res.data.attrs
     data.body = res.data.body
     data.docLink = `https://github.com/nuxt/docs/blob/master${path}.md`
     if (store.state.lang.iso === 'ru') {
       data.docLink = `https://github.com/translation-gang/ru.docs.nuxtjs/blob/translation-ru${path}.md`
+    } else if (store.state.lang.iso === 'zh-cn') {
+      data.docLink = `https://github.com/o2team/i18n-cn-nuxtjs-docs/blob/dev${path}.md`
     }
-    if (!data.attrs.title) console.error(`[${path}] Please define a title in the front matter.`)
-    if (!data.attrs.description) console.error(`[${path}] Please define a description in the front matter.`)
+    if (!data.attrs.title) console.error(`[${path}] 请在文档页头中指定标题(title)字段.`)
+    if (!data.attrs.description) console.error(`[${path}] 请在文档页头中指定描述(description)字段.`)
     return data
   },
   scrollToTop: true,
   head () {
     return {
       title: this.attrs.title,
-      titleTemplate: '%s - Nuxt.js Guide',
+      titleTemplate: '%s - Nuxt.js 教程',
       meta: [
         { hid: 'description', name: 'description', content: this.attrs.description }
       ]

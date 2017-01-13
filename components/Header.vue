@@ -73,7 +73,8 @@ export default {
     langs () {
       return [
         { iso: 'en', class: 'flag-en', url: 'https://nuxtjs.org' },
-        { iso: 'ru', class: 'flag-ru', url: 'https://ru.nuxtjs.org' }
+        { iso: 'ru', class: 'flag-ru', url: 'https://ru.nuxtjs.org' },
+        { iso: 'cn', class: 'flag-cn', url: 'https://cn.nuxtjs.org' }
       ]
     },
     ecosystemLinks() {

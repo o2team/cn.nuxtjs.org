@@ -1,6 +1,6 @@
 <template>
   <div>
-    <carbon-ads v-if="!isDev" :key="$route.params.slug"></carbon-ads>
+    <carbon-ads v-if="!isDev && $store.state._lang === 'en'" :key="$route.params.slug"></carbon-ads>
     <h1>{{ attrs.title }}</h1>
     <div class="video" v-if="attrs.youtube">
       <iframe class="youtube" :src="attrs.youtube" frameborder="0" allowfullscreen></iframe>
@@ -43,15 +43,15 @@ export default {
     } else if (store.state.lang.iso === 'zh-cn') {
       data.docLink = `https://github.com/o2team/i18n-cn-nuxtjs-docs/blob/dev${path}.md`
     }
-    if (!data.attrs.title) console.error(`[${path}] 请在文档页头中指定标题(title)字段.`)
-    if (!data.attrs.description) console.error(`[${path}] 请在文档页头中指定描述(description)字段.`)
+    if (!data.attrs.title) console.error(`[${path}] 请在文档页头中指定标题(title)字段.`) // eslint-disable-line no-console
+    if (!data.attrs.description) console.error(`[${path}] 请在文档页头中指定描述(description)字段.`) // eslint-disable-line no-console
     return data
   },
   scrollToTop: true,
   head () {
     return {
       title: this.attrs.title,
-      titleTemplate: '%s - Nuxt.js 教程',
+      titleTemplate: '%s - Nuxt.js',
       meta: [
         { hid: 'description', name: 'description', content: this.attrs.description }
       ]

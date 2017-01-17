@@ -6,12 +6,17 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    version: '0.9.5',
+    version: '0.9.6',
     visibleHeader: false,
     visibleAffix: false,
     apiURI: 'https://docs.api.nuxtjs.org',
     _lang: 'cn',
-    lang: {},
+    lang: {
+      text: {
+        search: '搜索',
+        version: '版本'
+      }
+    },
     menu: {}
   },
   mutations: {
@@ -30,7 +35,7 @@ const store = new Vuex.Store({
         const resMenu = await axios(state.apiURI + '/menu/' + state._lang)
         state.menu = resMenu.data
       } catch (e) {
-        console.error('Error on [nuxtServerInit] action, please run the docs server.')
+        console.error('Error on [nuxtServerInit] action, please run the docs server.') // eslint-disable-line no-console
       }
     }
   }

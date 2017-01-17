@@ -1,6 +1,6 @@
 <template>
   <div>
-    <carbon-ads v-if="!isDev" :key="$route.params.slug"></carbon-ads>
+    <carbon-ads v-if="!isDev && $store.state._lang === 'en'" :key="$route.params.slug"></carbon-ads>
     <html-parser :content="body"></html-parser>
     <p class="contribute">{{ $store.state.lang.guide.contribute }} <a :href="docLink" target="_blank">{{ $store.state.lang.guide.edit_on_github }}</a></p>
   </div>
@@ -20,7 +20,7 @@ export default {
       docLink: '',
       isDev: isDev
     }
-    const slug = route.params.slug || 'index'
+    const slug = route.params.slug || 'external-resources'
     const path = `/${store.state.lang.iso}/faq/${slug}`
     let res
     try {
@@ -37,15 +37,15 @@ export default {
     if (store.state.lang.iso === 'ru') {
       data.docLink = `https://github.com/translation-gang/ru.docs.nuxtjs/blob/translation-ru${path}.md`
     }
-    if (!data.attrs.title) console.error(`[${path}] Please define a title in the front matter.`)
-    if (!data.attrs.description) console.error(`[${path}] Please define a description in the front matter.`)
+    if (!data.attrs.title) console.error(`[${path}] Please define a title in the front matter.`) // eslint-disable-line no-console
+    if (!data.attrs.description) console.error(`[${path}] Please define a description in the front matter.`) // eslint-disable-line no-console
     return data
   },
   scrollToTop: true,
   head () {
     return {
       title: this.attrs.title,
-      titleTemplate: '%s - Nuxt.js FAQ',
+      titleTemplate: '%s - Nuxt.js',
       meta: [
         { hid: 'description', name: 'description', content: this.attrs.description }
       ]

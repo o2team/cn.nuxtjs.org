@@ -1,6 +1,6 @@
 <template>
   <div>
-    <carbon-ads v-if="!isDev" :key="$route.params.slug"></carbon-ads>
+    <carbon-ads v-if="!isDev && $store.state._lang === 'en'" :key="$route.params.slug"></carbon-ads>
     <h1>{{ attrs.title }}</h1>
     <blockquote>
       <p>{{ attrs.description }}</p>
@@ -23,6 +23,9 @@
         <span><div class="icon download"></div></span>
         {{ $store.state.lang.links.download }}
       </a>
+      <nuxt-link v-if="attrs.documentation" :to="attrs.documentation" class="button">
+        {{ $store.state.lang.links.documentation }}
+      </nuxt-link>
     </div>
     <html-parser :content="body"></html-parser>
   </div>
@@ -42,7 +45,7 @@ export default {
       body: '',
       isDev: isDev
     }
-    let slug = route.params.slug || 'async-datas'
+    let slug = route.params.slug || 'hello-world'
     const path = `/${store.state.lang.iso}/examples/${slug}`
     let res
     try {
@@ -55,8 +58,8 @@ export default {
     }
     data.attrs = res.data.attrs
     data.body = res.data.body
-    if (!data.attrs.title) console.error(`[${path}] 请在文档页头中指定标题(title)字段.`)
-    if (!data.attrs.description) console.error(`[${path}] 请在文档页头中指定描述(description)字段.`)
+    if (!data.attrs.title) console.error(`[${path}] 请在文档页头中指定标题(title)字段.`) // eslint-disable-line no-console
+    if (!data.attrs.description) console.error(`[${path}] 请在文档页头中指定描述(description)字段.`) // eslint-disable-line no-console
     return data
   },
   computed: {
@@ -68,7 +71,7 @@ export default {
   head () {
     return {
       title: this.attrs.title,
-      titleTemplate: '%s - Nuxt.js 示例',
+      titleTemplate: '%s - Nuxt.js',
       meta: [
         { hid: 'description', name: 'description', content: this.attrs.description }
       ]

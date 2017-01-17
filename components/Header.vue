@@ -77,7 +77,7 @@ export default {
         { iso: 'cn', class: 'flag-cn', url: 'https://cn.nuxtjs.org' }
       ]
     },
-    ecosystemLinks() {
+    ecosystemLinks () {
       return [
         {
           name: this.$store.state.lang.links.github,

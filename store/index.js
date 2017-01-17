@@ -11,12 +11,7 @@ const store = new Vuex.Store({
     visibleAffix: false,
     apiURI: 'https://docs.api.nuxtjs.org',
     _lang: 'cn',
-    lang: {
-      text: {
-        search: '搜索',
-        version: '版本'
-      }
-    },
+    lang: {},
     menu: {}
   },
   mutations: {

@@ -36,9 +36,11 @@ export default {
     data.docLink = `https://github.com/nuxt/docs/blob/master${path}.md`
     if (store.state.lang.iso === 'ru') {
       data.docLink = `https://github.com/translation-gang/ru.docs.nuxtjs/blob/translation-ru${path}.md`
+    } else if (store.state.lang.iso === 'zh-cn') {
+      data.docLink = `https://github.com/o2team/i18n-cn-nuxtjs-docs/blob/dev${path}.md`
     }
-    if (!data.attrs.title) console.error(`[${path}] Please define a title in the front matter.`) // eslint-disable-line no-console
-    if (!data.attrs.description) console.error(`[${path}] Please define a description in the front matter.`) // eslint-disable-line no-console
+    if (!data.attrs.title) console.error(`[${path}] 请在文档页头中指定标题(title)字段.`) // eslint-disable-line no-console
+    if (!data.attrs.description) console.error(`[${path}] 请在文档页头中指定标题(description)字段.`) // eslint-disable-line no-console
     return data
   },
   scrollToTop: true,

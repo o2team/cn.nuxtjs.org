@@ -42,7 +42,7 @@ export default {
   },
   head () {
     return {
-      title: 'Release Notes',
+      title: '版本记录',
       titleTemplate: '%s - Nuxt.js',
       meta: [
         { hid: 'description', name: 'description', content: 'Nuxt.js release notes from Github.' }

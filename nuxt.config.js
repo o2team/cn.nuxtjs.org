@@ -8,7 +8,8 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: 'favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css' }
     ]
   },
   css: [
@@ -16,22 +17,15 @@ module.exports = {
     'highlight.js/styles/hybrid.css',
     { src: '~assets/scss/main.scss', lang: 'scss' }
   ],
-  // router: {
-  //   routes: [
-  //     { path: '/guide/:slug', component: 'pages/guide' },
-  //     { path: '/api/:slug', component: 'pages/api' },
-  //     { path: '/examples/:slug', component: 'pages/examples' }
-  //   ]
-  // },
   plugins: [
-    '~plugins/ga.js',
-    '~plugins/marked'
+    '~plugins/ga.js'
   ],
   build: {
-    vendor: ['axios', 'marked', 'highlight.js']
+    vendor: ['axios']
   },
   env: {
-    githubToken: '4aa6bcf919d238504e7db59a66d32e78281c0ad3'
+    githubToken: '4aa6bcf919d238504e7db59a66d32e78281c0ad3',
+    docSearchApiKey: 'ff80fbf046ce827f64f06e16f82f1401'
   },
   loading: { color: '#41B883' },
   generate: {

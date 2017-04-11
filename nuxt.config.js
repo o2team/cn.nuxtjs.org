@@ -14,7 +14,7 @@ module.exports = {
   },
   css: [
     'normalize.css',
-    'highlight.js/styles/hybrid.css',
+    'highlight.js/styles/github.css',
     { src: '~assets/scss/main.scss', lang: 'scss' }
   ],
   plugins: [
@@ -29,31 +29,28 @@ module.exports = {
   },
   loading: { color: '#41B883' },
   generate: {
-    routeParams: {
-      '/guide/:slug': menuToRouteParams('guide'),
-      '/api/:slug': menuToRouteParams('api'),
-      '/examples/:slug': menuToRouteParams('examples'),
-      '/faq/:slug': menuToRouteParams('faq')
+    routes () {
+      const lang = 'en'
+      return Promise.all(
+        ['guide', 'api', 'examples', 'faq']
+        .map((category) => {
+          return axios.get(`https://docs.api.nuxtjs.org/menu/${lang}/${category}`)
+          .then((res) => res.data || [])
+          .then((menu) => {
+            return _(menu)
+            .map('links')
+            .flatten()
+            .map((m) => m.to.slice(1))
+            .compact()
+            .map((slug) => {
+              return `/${category}/${slug}`
+            })
+            .value()
+            .concat(`/${category}`)
+          })
+        })
+      )
+      .then((routes) => _(routes).flatten().uniq().value())
     }
-  }
-}
-
-function menuToRouteParams (category) {
-  return function () {
-    return axios.get(`https://docs.api.nuxtjs.org/menu/en/${category}`)
-    .then((res) => {
-      return res.data || []
-    })
-    .then((menu) => {
-      return _(menu)
-      .map('links')
-      .flatten()
-      .map((m) => m.to.slice(1))
-      .compact()
-      .map((slug) => {
-        return { slug }
-      })
-      .value()
-    })
   }
 }
